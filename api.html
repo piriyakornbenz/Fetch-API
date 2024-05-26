@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+</head>
+<body>
+
+    <h1 class="text-center mt-4">REST API</h1>
+
+    <div class="container">
+        <div class="row mt-4" id="card-container">
+            <!-- Data API will be inserted here -->
+        </div>
+        <p class="text-center">Data API from <a href="https://jsonplaceholder.typicode.com/" target="_blank">https://jsonplaceholder.typicode.com/</a></p>
+    </div>
+
+    <!-- start script -->
+    <script>
+        const cardContainer = document.getElementById('card-container');
+        const url = "https://jsonplaceholder.typicode.com/users";
+
+        fetch(url)
+        .then(res => res.json())
+        .then(json => {
+            json.forEach(item => {
+                const col = document.createElement('div');
+                col.className = 'col-12 col-sm-6 col-md-6 col-lg-4 mb-4';
+                col.innerHTML = `
+                    <div class="card mx-auto" style="width: auto;">
+                        <div class="card-body">
+                            <h5 class="card-title">${item.name}</h5>
+                            <p class="card-text">Email: <a href="">${item.email}</a></p>
+                            <p class="card-text">Company: <span class='text-secondary'>${item.company.name}</span></p>
+                            <a href="" class="btn btn-primary">More...</a>
+
+                        </div>
+                    </div>
+                `;
+                cardContainer.appendChild(col);
+            });
+        }).catch(err => {
+            console.log(err);
+        });
+    </script>
+    <!-- end script -->
+
+</body>
+</html>

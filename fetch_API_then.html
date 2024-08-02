@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container mt-4">
+
+        <h3 class="my-4 text-center">Fetch API with .then</h3><hr>
+
+        <table id="myTable" class="table table-striped table-bordered table-hover shadow-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Button</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table><br>
+
+        <p>Link API: <a href="https://jsonplaceholder.typicode.com/users" target="_blank">https://jsonplaceholder.typicode.com/users</a></p><br>
+
+    </div>
+
+    <script>
+        const tbody = document.getElementById('tbody');
+        const url = "https://jsonplaceholder.typicode.com/users";
+
+        fetch(url)
+        .then(res => res.json())
+        .then(json => {
+            json.forEach((data, i) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="align-middle">${i + 1}</td>
+                    <td class="align-middle">${data.name}</td>
+                    <td class="align-middle">${data.email}</td>
+                    <td class="align-middle"><a href="https://google.com" target="_blank" class="btn btn-primary">more</a></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }).catch(err => {
+            console.log(err);
+        });
+    </script>
+
+</body>
+</html>
